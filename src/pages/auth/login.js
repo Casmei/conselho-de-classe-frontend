@@ -21,7 +21,6 @@ import { useAuth } from 'src/hooks/use-auth';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 
 const Page = () => {
-  const [open, setOpen] = useStaste<boolean>(false)
   const router = useRouter();
   const auth = useAuth();
   const [method, setMethod] = useState('email');
