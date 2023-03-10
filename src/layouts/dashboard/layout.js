@@ -26,16 +26,7 @@ const LayoutContainer = styled('div')({
 export const Layout = withAuthGuard((props) => {
   const { children } = props;
   const pathname = usePathname();
-  const [openNav, setOpenNav] = useState(true);
-
-  useEffect(
-    () => {
-      if (openNav) {
-        setOpenNav(false);
-      }
-    },
-    [pathname, openNav]
-  );
+  const [openNav, setOpenNav] = useState(false);
 
   return (
     <>
