@@ -3,8 +3,10 @@ import { format } from 'date-fns';
 import {
   Avatar,
   Box,
+  Button,
   Card,
   Checkbox,
+  Modal,
   Stack,
   Table,
   TableBody,
@@ -141,7 +143,7 @@ export const StudentsTable = (props) => {
   );
 };
 
-CustomersTable.propTypes = {
+StudentsTable.propTypes = {
   count: PropTypes.number,
   items: PropTypes.array,
   onDeselectAll: PropTypes.func,

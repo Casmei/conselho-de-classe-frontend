@@ -6,6 +6,7 @@ import UserIcon from '@heroicons/react/24/solid/UserIcon';
 import UserPlusIcon from '@heroicons/react/24/solid/UserPlusIcon';
 import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
+import FaceIcon from '@mui/icons-material/Face';
 import { SvgIcon } from '@mui/material';
 
 export const items = [
@@ -78,6 +79,15 @@ export const items = [
     icon: (
       <SvgIcon fontSize="small">
         <XCircleIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Estudante',
+    path: '/student',
+    icon: (
+      <SvgIcon fontSize="small">
+        <FaceIcon />
       </SvgIcon>
     )
   }

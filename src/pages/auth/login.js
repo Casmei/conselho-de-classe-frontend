@@ -10,6 +10,7 @@ import {
   Button,
   FormHelperText,
   Link,
+  Modal,
   Stack,
   Tab,
   Tabs,
@@ -20,6 +21,7 @@ import { useAuth } from 'src/hooks/use-auth';
 import { Layout as AuthLayout } from 'src/layouts/auth/layout';
 
 const Page = () => {
+  const [open, setOpen] = useStaste<boolean>(false)
   const router = useRouter();
   const auth = useAuth();
   const [method, setMethod] = useState('email');
@@ -99,6 +101,7 @@ const Page = () => {
               <Typography variant="h4">
                 Login
               </Typography>
+              
               <Typography
                 color="text.secondary"
                 variant="body2"
@@ -213,7 +216,10 @@ const Page = () => {
             )}
           </div>
         </Box>
+
       </Box>
+
+
     </>
   );
 };

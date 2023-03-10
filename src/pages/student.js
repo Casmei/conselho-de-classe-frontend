@@ -4,12 +4,13 @@ import { subDays, subHours } from 'date-fns';
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
 import ArrowUpOnSquareIcon from '@heroicons/react/24/solid/ArrowUpOnSquareIcon';
 import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
-import { Box, Button, Container, Stack, SvgIcon, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Modal, Stack, SvgIcon, Typography } from '@mui/material';
 import { useSelection } from 'src/hooks/use-selection';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { CustomersSearch } from 'src/sections/customer/customers-search';
 import { applyPagination } from 'src/utils/apply-pagination';
-import { StudentsTable } from 'src/sections/students/student';
+import { StudentsTable } from 'src/sections/students/StudentTable';
+import { StudentProfileDetails } from 'src/components/ProfileDetails/StudentProfileDetails';
+
 
 const now = new Date();
 
@@ -175,6 +176,8 @@ const useCustomerIds = (customers) => {
 };
 
 const Page = () => {
+  const [open, setOpen] = useState(false)
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const customers = useCustomers(page, rowsPerPage);
@@ -199,7 +202,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Customers | Devias Kit
+          Aluno | Conselho de Classe
         </title>
       </Head>
       <Box
@@ -209,6 +212,16 @@ const Page = () => {
           py: 8
         }}
       >
+        <Modal
+          open={open}
+          onClose={() => {setOpen(false)}}
+          style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <StudentProfileDetails />
+        </Modal>
+
         <Container maxWidth="xl">
           <Stack spacing={3}>
             <Stack
@@ -218,7 +231,7 @@ const Page = () => {
             >
               <Stack spacing={1}>
                 <Typography variant="h4">
-                  Customers
+                  Aluno
                 </Typography>
                 <Stack
                   alignItems="center"
@@ -226,6 +239,7 @@ const Page = () => {
                   spacing={1}
                 >
                   <Button
+                    disabled
                     color="inherit"
                     startIcon={(
                       <SvgIcon fontSize="small">
@@ -233,22 +247,26 @@ const Page = () => {
                       </SvgIcon>
                     )}
                   >
-                    Import
+                    Importar
                   </Button>
+
                   <Button
                     color="inherit"
+                    type=''
                     startIcon={(
                       <SvgIcon fontSize="small">
+                        
                         <ArrowDownOnSquareIcon />
                       </SvgIcon>
                     )}
                   >
-                    Export
+                    Exportar
                   </Button>
                 </Stack>
               </Stack>
               <div>
                 <Button
+                onClick={() => {setOpen(true)}}
                   startIcon={(
                     <SvgIcon fontSize="small">
                       <PlusIcon />
@@ -256,11 +274,10 @@ const Page = () => {
                   )}
                   variant="contained"
                 >
-                  Add
+                  Adicionar
                 </Button>
               </div>
             </Stack>
-            <CustomersSearch />
             <StudentsTable
               count={data.length}
               items={customers}
