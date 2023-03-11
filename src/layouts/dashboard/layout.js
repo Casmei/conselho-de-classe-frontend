@@ -28,6 +28,16 @@ export const Layout = withAuthGuard((props) => {
   const pathname = usePathname();
   const [openNav, setOpenNav] = useState(false);
 
+  useEffect(
+    () => {
+      if (openNav) {
+        setOpenNav(false);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [children]
+  );
+
   return (
     <>
       <TopNav onNavOpen={() => setOpenNav(true)} />
