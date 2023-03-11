@@ -84,7 +84,7 @@ export const items = [
   },
   {
     title: 'Estudante',
-    path: '/student',
+    path: '/students',
     icon: (
       <SvgIcon fontSize="small">
         <FaceIcon />

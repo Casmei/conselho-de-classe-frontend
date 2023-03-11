@@ -1,6 +1,6 @@
 {
-  "name": "material-kit-react",
-  "version": "3.0.0",
+  "name": "conselho-de-classe",
+  "version": "1.0.0",
   "author": "Devias",
   "licence": "MIT",
   "homepage": "https://devias.io",
@@ -33,6 +33,7 @@
     "react": "18.2.0",
     "react-apexcharts": "1.4.0",
     "react-dom": "18.2.0",
+    "react-toastify": "^9.1.1",
     "sass": "^1.58.3",
     "simplebar-react": "^3.2.1",
     "yup": "1.0.0"

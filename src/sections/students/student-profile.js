@@ -1,4 +1,5 @@
 import {
+  Alert,
   Avatar,
   Box,
   Chip,
@@ -12,7 +13,8 @@ const user = {
   name: 'Patrick Barbacena Lopes',
 };
 
-export const AccountProfile = () => (
+export const StudentProfile = () => (
+  <>
       <Box
         sx={{
           display: 'flex',
@@ -50,5 +52,16 @@ size='small' />
           </Box>
         </Box>
       </Box>
+      <Alert
+        color="primary"
+        severity="info"
+        sx={{ mt: 3 }}
+      >
+        <div>
+          Foto de aluno em <b>futuras</b> atualizações!
+        </div>
+      </Alert>
+  </>
+
 
 );

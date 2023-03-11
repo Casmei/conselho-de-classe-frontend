@@ -6,6 +6,8 @@ import {
   Button,
   Card,
   Checkbox,
+  CircularProgress,
+  IconButton,
   Modal,
   Stack,
   Table,
@@ -18,6 +20,11 @@ import {
 } from '@mui/material';
 import {Scrollbar} from '../../components/scrollbar'
 import {getInitials} from '../../utils/get-initials'
+
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import { useRouter } from 'next/navigation';
+
 
 export const StudentsTable = (props) => {
   const {
@@ -33,6 +40,8 @@ export const StudentsTable = (props) => {
     rowsPerPage = 0,
     selected = []
   } = props;
+
+  const route = useRouter()
 
   const selectedSome = (selected.length > 0) && (selected.length < items.length);
   const selectedAll = (items.length > 0) && (selected.length === items.length);
@@ -58,26 +67,25 @@ export const StudentsTable = (props) => {
                   />
                 </TableCell>
                 <TableCell>
-                  Name
+                  Nome
                 </TableCell>
                 <TableCell>
-                  Email
+                  Registro
                 </TableCell>
                 <TableCell>
-                  Location
+                  Turma
                 </TableCell>
                 <TableCell>
-                  Phone
+                  Curso
                 </TableCell>
                 <TableCell>
-                  Signed Up
+                  Ações
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {items.map((customer) => {
                 const isSelected = selected.includes(customer.id);
-                const createdAt = format(customer.createdAt, 'dd/MM/yyyy');
 
                 return (
                   <TableRow
@@ -115,13 +123,25 @@ export const StudentsTable = (props) => {
                       {customer.email}
                     </TableCell>
                     <TableCell>
-                      {customer.address.city}, {customer.address.state}, {customer.address.country}
+                      {customer.address}
                     </TableCell>
                     <TableCell>
                       {customer.phone}
                     </TableCell>
                     <TableCell>
-                      {createdAt}
+                      <div>
+                        <IconButton
+                          aria-label="edit"
+                          onClick={() => {
+                            route.push('/students/edit')
+                          }}
+                        >
+                          <ModeEditOutlineOutlinedIcon />
+                        </IconButton>
+                        <IconButton aria-label="delete">
+                          <DeleteOutlinedIcon />
+                        </IconButton>
+                      </div>
                     </TableCell>
                   </TableRow>
                 );
