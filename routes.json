@@ -1,0 +1,4 @@
+{
+  "/institutions/:id/:resource/*": "/$1",
+  "/:resource/:id/show": "/:resource/:id"
+}
