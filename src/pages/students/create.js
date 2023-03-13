@@ -33,7 +33,6 @@ const Page = () => (
                   subheader={'Crie um novo estudante'}
                   method={'POST'}
                 />
-
           </div>
         </Stack>
       </Container>

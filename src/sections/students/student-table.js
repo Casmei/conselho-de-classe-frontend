@@ -41,6 +41,8 @@ export const StudentsTable = (props) => {
     selected = []
   } = props;
 
+  console.log(items)
+
   const route = useRouter()
 
   const selectedSome = (selected.length > 0) && (selected.length < items.length);
@@ -84,13 +86,13 @@ export const StudentsTable = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {items.map((customer) => {
-                const isSelected = selected.includes(customer.id);
+              {items.map((student) => {
+                const isSelected = selected.includes(student.id);
 
                 return (
                   <TableRow
                     hover
-                    key={customer.id}
+                    key={student.id}
                     selected={isSelected}
                   >
                     <TableCell padding="checkbox">
@@ -98,9 +100,9 @@ export const StudentsTable = (props) => {
                         checked={isSelected}
                         onChange={(event) => {
                           if (event.target.checked) {
-                            onSelectOne?.(customer.id);
+                            onSelectOne?.(student.id);
                           } else {
-                            onDeselectOne?.(customer.id);
+                            onDeselectOne?.(student.id);
                           }
                         }}
                       />
@@ -111,22 +113,22 @@ export const StudentsTable = (props) => {
                         direction="row"
                         spacing={2}
                       >
-                        <Avatar src={customer.avatar}>
-                          {getInitials(customer.name)}
+                        <Avatar src={student.avatar}>
+                          {getInitials(student.name)}
                         </Avatar>
                         <Typography variant="subtitle2">
-                          {customer.name}
+                          {student.name}
                         </Typography>
                       </Stack>
                     </TableCell>
                     <TableCell>
-                      {customer.email}
+                      {student.registration}
                     </TableCell>
                     <TableCell>
-                      {customer.address}
+                      {student.class.name}
                     </TableCell>
                     <TableCell>
-                      {customer.phone}
+                      {student.course.name}
                     </TableCell>
                     <TableCell>
                       <div>

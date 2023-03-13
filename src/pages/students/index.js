@@ -1,6 +1,5 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
-import { subDays, subHours } from 'date-fns';
 import ArrowDownOnSquareIcon from '@heroicons/react/24/solid/ArrowDownOnSquareIcon';
 import ArrowUpOnSquareIcon from '@heroicons/react/24/solid/ArrowUpOnSquareIcon';
 import PlusIcon from '@heroicons/react/24/solid/PlusIcon';
@@ -11,49 +10,43 @@ import { applyPagination } from 'src/utils/apply-pagination';
 import { StudentsTable } from 'src/sections/students/student-table';
 import { StudentProfileDetails } from 'src/components/ProfileDetails/StudentProfileDetails';
 import { useRouter } from 'next/navigation';
+import { ApiService } from 'src/service/Api';
 
 
-const now = new Date();
 
-const data = [
-  {
-    id: '5e8680e60cba5019c5ca6fda',
-    address: 'ADS2021',
-    avatar: '/assets/avatars/avatar-marcus-finn.png',
-    createdAt: subDays(subHours(now, 1), 9).getTime(),
-    email: '324157624',
-    name: 'Patrick Barbacena Lopes',
-    phone: 'Análise e Desenvolvimento de Sistemas'
-  }
-];
-
-const useCustomers = (page, rowsPerPage) => {
+const useStudent = ( data, page, rowsPerPage) => {
   return useMemo(
     () => {
       return applyPagination(data, page, rowsPerPage);
     },
-    [page, rowsPerPage]
+    [data, page, rowsPerPage]
   );
 };
 
-const useCustomerIds = (customers) => {
+const useStudentIds = (students) => {
   return useMemo(
     () => {
-      return customers.map((customer) => customer.id);
+      return students.map((student) => student.id);
     },
-    [customers]
+    [students]
   );
 };
 
 const Page = () => {
   const [open, setOpen] = useState(false)
-
+  const [data, setData] = useState([]);
+  const institutionId = 40
   const router = useRouter();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const customers = useCustomers(page, rowsPerPage);
-  const customersIds = useCustomerIds(customers);
-  const customersSelection = useSelection(customersIds);
+  const students = useStudent( data, page, rowsPerPage);
+  const studentsIds = useStudentIds(students);
+  const studentsSelection = useSelection(studentsIds);
+
+  useEffect(() => {
+    ApiService.get(`/institutions/${institutionId}/students`)
+      .then((response) => {setData(response.data)})
+  }, [])
 
   const handlePageChange = useCallback(
     (event, value) => {
@@ -61,10 +54,6 @@ const Page = () => {
     },
     []
   );
-
-  const handleAddStudent = () => {
-    router.push('/students/create')
-  }
 
   const handleRowsPerPageChange = useCallback(
     (event) => {
@@ -141,7 +130,7 @@ const Page = () => {
               </Stack>
               <div>
                 <Button
-                  onClick={handleAddStudent}
+                  onClick={() => {router.push('/students/create')}}
                   startIcon={(
                     <SvgIcon fontSize="small">
                       <PlusIcon />
@@ -155,16 +144,16 @@ const Page = () => {
             </Stack>
             <StudentsTable
               count={data.length}
-              items={customers}
-              onDeselectAll={customersSelection.handleDeselectAll}
-              onDeselectOne={customersSelection.handleDeselectOne}
+              items={students}
+              onDeselectAll={studentsSelection.handleDeselectAll}
+              onDeselectOne={studentsSelection.handleDeselectOne}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleRowsPerPageChange}
-              onSelectAll={customersSelection.handleSelectAll}
-              onSelectOne={customersSelection.handleSelectOne}
+              onSelectAll={studentsSelection.handleSelectAll}
+              onSelectOne={studentsSelection.handleSelectOne}
               page={page}
               rowsPerPage={rowsPerPage}
-              selected={customersSelection.selected}
+              selected={studentsSelection.selected}
             />
           </Stack>
         </Container>
