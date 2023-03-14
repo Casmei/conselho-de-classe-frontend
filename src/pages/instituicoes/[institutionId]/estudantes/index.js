@@ -76,16 +76,6 @@ const Page = () => {
           py: 8
         }}
       >
-        <Modal
-          open={open}
-          onClose={() => {setOpen(false)}}
-          style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <StudentProfileDetails />
-        </Modal>
-
         <Container maxWidth="xl">
           <Stack spacing={3}>
             <Stack
@@ -130,7 +120,7 @@ const Page = () => {
               </Stack>
               <div>
                 <Button
-                  onClick={() => {router.push('/students/create')}}
+                  onClick={() => {router.push('/instituicoes/40/estudantes/criar')}}
                   startIcon={(
                     <SvgIcon fontSize="small">
                       <PlusIcon />

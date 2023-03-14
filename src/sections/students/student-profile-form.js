@@ -19,6 +19,7 @@ import { useRouter } from 'next/navigation';
 
 export const StudentProfileForm = ({title, subheader, method}) => {
   const router = useRouter();
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -46,7 +47,11 @@ export const StudentProfileForm = ({title, subheader, method}) => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        //TODO: Fazer um post para minha api
+        if(method == 'POST') {
+          ApiService.post(`/institutions/40/students`, values).then(() => {
+            router.back()
+          })
+        }
         router.push('/students');
       } catch (err) {
         helpers.setStatus({ success: false });

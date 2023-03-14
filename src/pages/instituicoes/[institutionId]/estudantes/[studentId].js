@@ -7,18 +7,19 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { ApiService } from 'src/service/Api';
 
+
 const Page = () => {
   const router = useRouter()
-  const { id } = router.query
+  const { institutionId, studentId } = router.query
   const [data, setData] = useState({});
 
-  console.log("🚀 ~ id:", id)
 
-
-  // useEffect(() => {
-  //   ApiService.get(`/institutions/40/students/${id}`)
-  //     .then((response) => {setData(response.data)})
-  // }, [])
+  useEffect(() => {
+    if(institutionId && studentId) {
+      ApiService.get(`institutions/${institutionId}/students/${studentId}`)
+      .then((response) => setData(response.data))
+    }
+  }, [])
 
   return (
     <>
@@ -43,7 +44,7 @@ const Page = () => {
           </div>
           <div>
 
-                <StudentProfile />
+                <StudentProfile data={data} />
 
                 <Divider style={{margin: '15px 0 15px 0', border: 'none'}}/>
 
