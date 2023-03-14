@@ -7,6 +7,7 @@ import UserPlusIcon from '@heroicons/react/24/solid/UserPlusIcon';
 import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
 import XCircleIcon from '@heroicons/react/24/solid/XCircleIcon';
 import FaceIcon from '@mui/icons-material/Face';
+import ClassIcon from '@mui/icons-material/Class';
 import { SvgIcon } from '@mui/material';
 
 export const items = [
@@ -88,6 +89,15 @@ export const items = [
     icon: (
       <SvgIcon fontSize="small">
         <FaceIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Turma',
+    path: '/turmas',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ClassIcon />
       </SvgIcon>
     )
   }
