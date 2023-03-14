@@ -1,9 +1,19 @@
 import NextLink from 'next/link';
 import PropTypes from 'prop-types';
 import { Box, ButtonBase } from '@mui/material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { options } from './menu-options';
+import { useState, useRef } from 'react';
+import { useRouter } from 'next/router';
+import { CSSTransition } from 'react-transition-group';
+import styles from '../../styles/sidebar/menuOptionsAcordion.module.scss';
 
 export const SideNavItem = (props) => {
-  const { active = false, disabled, external, icon, path, title } = props;
+  const { active = false, disabled, external, icon, path, title, dropdown } = props;
+  const [displayed, setDisplayed] = useState(false);
+  const [rotate, setRotate] = useState({});
+  const menu = useRef(null);
+  const router = useRouter();
 
   const linkProps = path
     ? external
@@ -19,7 +29,10 @@ export const SideNavItem = (props) => {
     : {};
 
   return (
-    <li>
+    <li onClick={() => {
+      setDisplayed(!displayed)
+      setRotate(styles.iconRotate)
+    }} >
       <ButtonBase
         sx={{
           alignItems: 'center',
@@ -77,7 +90,58 @@ export const SideNavItem = (props) => {
         >
           {title}
         </Box>
+        {dropdown && ( 
+          <Box
+            component="span"
+            sx={{ 
+              color: 'neutral.400',
+              display: 'flex',
+              alignItems: 'baseline',
+              ...(active && {
+                color: 'primary.main'
+              })
+            }}
+          >
+            <ArrowForwardIosIcon className={rotate} style={{ transform: !displayed ? 'rotate(0deg)' : '' }} />
+          </Box>
+        )}
       </ButtonBase>
+      {dropdown && options.map(option => (
+        <ButtonBase
+          sx={{
+            borderRadius: 1,
+            textAlign: 'left',
+            width: '100%',
+            color: 'neutral.400',
+            ...(active && {
+              backgroundColor: 'rgba(255, 255, 255, 0.04)'
+            }),
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.04)'
+            }
+          }}
+          onClick={() => router.push(option.path)}
+        >
+          <CSSTransition nodeRef={menu} in={displayed} timeout={200} classNames={styles.menuTransition} > 
+            <section
+              style={{
+                display: (displayed ? 'inherit' : 'none'),
+                justifyContent: 'start',
+                width: 'inherit',
+                paddingLeft: '3em',
+              }}
+              ref={menu}
+            >
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginRight: '1em'
+              }} >{option.icon}</div>
+              <p>{option.title}</p>
+            </section>
+          </CSSTransition>
+        </ButtonBase>
+      ))}
     </li>
   );
 };
