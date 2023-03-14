@@ -84,11 +84,12 @@ export const items = [
   },
   {
     title: 'Estudante',
-    path: '/students',
+    // path: '/students',
     icon: (
       <SvgIcon fontSize="small">
         <FaceIcon />
       </SvgIcon>
-    )
+    ),
+    dropdown: true
   }
 ];
