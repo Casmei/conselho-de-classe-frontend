@@ -135,7 +135,7 @@ export const StudentsTable = (props) => {
                         <IconButton
                           aria-label="edit"
                           onClick={() => {
-                            route.push('/students/edit')
+                            route.push(`/students/${student.id}`)
                           }}
                         >
                           <ModeEditOutlineOutlinedIcon />

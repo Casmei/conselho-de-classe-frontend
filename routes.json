@@ -1,4 +1,4 @@
 {
-  "/institutions/:id/:resource/*": "/$1",
-  "/:resource/:id/show": "/:resource/:id"
+  "/institutions/40/:resource/*": "/$1",
+  ":studentId": "/:resource/:studentId"
 }

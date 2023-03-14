@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { Box, Container, Divider, Stack, Typography, Unstable_Grid2 as Grid } from '@mui/material';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
-import { StudentProfile } from 'src/sections/students/student-profile';
 import { StudentProfileForm } from 'src/sections/students/student-profile-form';
 
 const Page = () => (
@@ -47,3 +46,6 @@ Page.getLayout = (page) => (
 );
 
 export default Page;
+
+
+  // "/institutions/:id/:resource/*": "/$1",

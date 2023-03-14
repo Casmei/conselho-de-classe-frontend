@@ -3,9 +3,25 @@ import { Box, Container, Divider, Stack, Typography, Unstable_Grid2 as Grid } fr
 import { Layout as DashboardLayout } from 'src/layouts/dashboard/layout';
 import { StudentProfile } from 'src/sections/students/student-profile';
 import { StudentProfileForm } from 'src/sections/students/student-profile-form';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { ApiService } from 'src/service/Api';
 
-const Page = () => (
-  <>
+const Page = () => {
+  const router = useRouter()
+  const { id } = router.query
+  const [data, setData] = useState({});
+
+  console.log("🚀 ~ id:", id)
+
+
+  // useEffect(() => {
+  //   ApiService.get(`/institutions/40/students/${id}`)
+  //     .then((response) => {setData(response.data)})
+  // }, [])
+
+  return (
+    <>
     <Head>
       <title>
         Estudante | Editar
@@ -43,7 +59,8 @@ const Page = () => (
       </Container>
     </Box>
   </>
-);
+  )
+};
 
 Page.getLayout = (page) => (
   <DashboardLayout>
